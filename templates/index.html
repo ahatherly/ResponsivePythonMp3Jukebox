@@ -1,0 +1,23 @@
+<html>
+<body>
+<h1>mp3 server</h1>
+<ul>
+{% if path != "/" and parent %}
+  <li><a href="browse?dir={{parent}}">[UP]</a></li>
+{% endif %}
+
+{% for dir in directories %}
+  <li><a href="browse?dir={{path}}/{{dir}}">{{ dir }}</a></li>
+{% endfor %}
+</ul>
+<hr>
+<ul>
+{% for file in files %}
+  <li>{{file}} <audio src="play?dir={{path}}&file={{file}}" preload="metadata" controls></audio></li>
+{% endfor %}
+</ul>
+<script src="js/jquery.js"></script>
+<script src="js/audioplayer.js"></script>
+<script>$( function() { $( 'audio' ).audioPlayer(); } );</script>
+</body>
+</html>
