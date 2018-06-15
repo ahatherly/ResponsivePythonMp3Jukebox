@@ -24,6 +24,13 @@ def play():
     fileBrowser.setPath(path)
     return send_from_directory(fileBrowser.getFullPath(), filename)
 
+@application.route("/thumb")
+def thumb():
+    path = request.args.get('dir', '')
+    filename = request.args.get('file', '')
+    fileBrowser.setPath(path)
+    return send_from_directory(fileBrowser.getFullPath(), filename)
+
 def showContents():
     directories = fileBrowser.getDirectories()
     files = fileBrowser.getFiles()
