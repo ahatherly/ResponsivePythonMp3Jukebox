@@ -38,15 +38,15 @@ class FSBrowser:
                 # See if we have a track number in the name we can sort on
                 parts = f.split(" ")
                 if parts[0].isnumeric():
-                    fileEntry['sortKey'] = int(parts[0])
+                    fileEntry['sortKey'] = (str(int(parts[0]))).zfill(3)
                 else:
                     parts = f.split(".")
                     if parts[0].isnumeric():
-                        fileEntry['sortKey'] = int(parts[0])
+                        fileEntry['sortKey'] = (str(int(parts[0]))).zfill(3)
                     else:
                         parts = f.split("-")
                         if parts[0].isnumeric():
-                            fileEntry['sortKey'] = int(parts[0])
+                            fileEntry['sortKey'] = (str(int(parts[0]))).zfill(3)
                         else:
                             fileEntry['sortKey'] = f
 
