@@ -1,10 +1,12 @@
 from flask import Flask, render_template, url_for, send_from_directory, request
 import subprocess, time
 from filesystem import FSBrowser
+from coverart import CoverArt
 
 application = Flask(__name__)
 home_directory = "/media/FreeAgent_Drive/mp3s"
 fileBrowser = FSBrowser(home_directory)
+coverart = CoverArt()
 
 @application.route("/")
 def index():
@@ -30,6 +32,14 @@ def thumb():
     filename = request.args.get('file', '')
     fileBrowser.setPath(path)
     return send_from_directory(fileBrowser.getFullPath(), filename)
+
+@application.route("/coverart")
+def test():
+    path = request.args.get('dir', '')
+    fileBrowser.setPath(path)
+    result=fileBrowser.getArtistAlbum()
+    coverart.getCoverArt(result['artist'], result['album'])
+    return "Artist: "+result['artist']+"<br/>Album: "+result['album']
 
 def showContents():
     directories = fileBrowser.getDirectories()

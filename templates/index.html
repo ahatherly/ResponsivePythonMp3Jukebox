@@ -20,20 +20,21 @@
 			<div class="large-12 cell">
 	
 				{% if path != "/" and parent %}
-				  <p><a href="browse?dir={{parent}}"><i class="fas fa-angle-double-left fa-3x"></i></a></p>
+				  <p><a id="navigateUp" href="browse?dir={{parent}}"><i class="fas fa-angle-double-left fa-3x"></i></a></p>
 				{% else %}
 				  <p></p>
 				{% endif %}
 				
 				<!-- SoundManager2 -->
 				{% if files %}
-				<div class="sm2-bar-ui playlist-open">
+				<div id="smplayer_main" class="sm2-bar-ui playlist-open">
 				 <div class="bd sm2-main-controls">
 				  <div class="sm2-inline-texture"></div>
 				  <div class="sm2-inline-gradient"></div>
 				  <div class="sm2-inline-element sm2-button-element">
 				   <div class="sm2-button-bd">
-					<a href="#play" class="sm2-inline-button sm2-icon-play-pause">Play / pause</a>
+					<a id="playButton" href="#play"
+						class="sm2-inline-button sm2-icon-play-pause">Play / pause</a>
 				   </div>
 				  </div>
 				  <div class="sm2-inline-element sm2-inline-status">
@@ -65,12 +66,12 @@
 				  </div>
 				  <div class="sm2-inline-element sm2-button-element">
 				   <div class="sm2-button-bd">
-					<a href="#prev" title="Previous" class="sm2-inline-button sm2-icon-previous">&lt; previous</a>
+					<a id="previousButton" href="#prev" title="Previous" class="sm2-inline-button sm2-icon-previous">&lt; previous</a>
 				   </div>
 				  </div>
 				  <div class="sm2-inline-element sm2-button-element">
 				   <div class="sm2-button-bd">
-					<a href="#next" title="Next" class="sm2-inline-button sm2-icon-next">&gt; next</a>
+					<a id="nextButton" href="#next" title="Next" class="sm2-inline-button sm2-icon-next">&gt; next</a>
 				   </div>
 				  </div>
 				  <div class="sm2-inline-element sm2-button-element sm2-menu">
@@ -116,13 +117,13 @@
 			<!-- Directories -->
 			{% for dir in directories %}
 			<div class="cell large-2 medium-4 small-6">
-				<a href="browse?dir={{path|urlencode}}/{{dir.name|urlencode}}">
-				{% if dir.thumb %}
-				<img width="140" height="140" src="thumb?dir={{path|urlencode}}/{{dir.name|urlencode}}&file={{dir.thumb|urlencode}}"/>
-				{% else %}
-				<img width="140" height="140" src="/static/cd.png"/>
-				{% endif %}
-				<p>{{ dir.name }}</p>
+				<a class="dirEntry" href="browse?dir={{path|urlencode}}/{{dir.name|urlencode}}">
+						{% if dir.thumb %}
+						<img border="0" src="thumb?dir={{path|urlencode}}/{{dir.name|urlencode}}&file={{dir.thumb|urlencode}}"/>
+						{% else %}
+						<img border="0" src="/static/cd.png"/>
+						{% endif %}
+						<p>{{ dir.name }}</p>
 				</a>
 			</div> <!-- End Cell -->
 			{% endfor %}
@@ -133,10 +134,13 @@
 	
 
     <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/jquery.hotkeys.js"></script>
+    <script src="/static/js/keybindings.js"></script>
     <script src="/static/js/vendor/foundation.js"></script>
     <script src="/static/js/app.js"></script>
     <script>
       $(document).foundation();
+      $('a')[0].focus();
     </script>
 
 </body>

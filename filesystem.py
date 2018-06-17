@@ -25,7 +25,26 @@ class FSBrowser:
                 return "/"
             else:
                 return self.path[:n]
-    
+
+    def getArtistAlbum(self):
+        result = {}
+        # Artist
+        parent = self.getParent()
+        if parent != "":
+            n = parent.rfind("/")
+            if n<1:
+                result['artist']=''
+            else:
+                result['artist']=parent[n+1:]
+        # Album
+        if self.path != "":
+            n = self.path.rfind("/")
+            if n<1:
+                result['album']=''
+            else:
+                result['album']=self.path[n+1:]
+        return result
+
     def getFiles(self):
         fullPath = self.homePath+"/"+self.path
         fileList = listdir(fullPath)

@@ -4,3 +4,21 @@ body {
 a {
 	color: #051d61
 }
+
+:focus { 
+    outline: 3px solid orange;
+    color: orange;
+}
+p:focus {
+	color: orange;
+}
+.dirEntry {
+	width: 100%;
+}
+.dirEntry p {
+	width: 100%;
+	text-align: center;
+}
+.dirEntry img {
+	width: 100%;
+}
