@@ -117,14 +117,17 @@
 			<!-- Directories -->
 			{% for dir in directories %}
 			<div class="cell large-2 medium-4 small-6">
-				<a class="dirEntry" href="browse?dir={{path|urlencode}}/{{dir.name|urlencode}}">
+				<a class="dirThumb" href="browse?dir={{path|urlencode}}/{{dir.name|urlencode}}">
 						{% if dir.thumb %}
 						<img border="0" src="thumb?dir={{path|urlencode}}/{{dir.name|urlencode}}&file={{dir.thumb|urlencode}}"/>
 						{% else %}
 						<img border="0" src="/static/cd.png"/>
 						{% endif %}
+				</a>
+				<a class="dirEntry" tabindex="-1" href="browse?dir={{path|urlencode}}/{{dir.name|urlencode}}">
 						<p>{{ dir.name }}</p>
 				</a>
+				
 			</div> <!-- End Cell -->
 			{% endfor %}
 			
@@ -140,7 +143,7 @@
     <script src="/static/js/app.js"></script>
     <script>
       $(document).foundation();
-      $('a')[0].focus();
+      $('a.dirThumb')[0].focus();
     </script>
 
 </body>

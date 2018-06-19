@@ -6,19 +6,17 @@ a {
 }
 
 :focus { 
-    outline: 3px solid orange;
+    outline: 5px solid orange;
     color: orange;
 }
-p:focus {
-	color: orange;
-}
-.dirEntry {
+
+.dirEntry, .dirThumb {
 	width: 100%;
 }
 .dirEntry p {
 	width: 100%;
 	text-align: center;
 }
-.dirEntry img {
+.dirThumb img {
 	width: 100%;
 }

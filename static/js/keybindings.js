@@ -18,9 +18,9 @@ window.addEventListener("keydown", function(e) {
 }, false);
 
 $(document).bind('keydown', 'esc', function(){
-   //$('#navigateUp')[0].click();
-   window.location.href = $('#navigateUp')[0].href;
-   //alert('Esc pressed');
+   if ($('#navigateUp').length) {
+   	$('#navigateUp')[0].click();
+   }
 });
 
 $(document).bind('keydown', 'p', function(){
@@ -42,10 +42,46 @@ $(document).bind('keydown', ',', function(){
 });
 
 $(document).bind('keydown', 'right', function(){
-   $(':focus').next('.dirEntry').focus();
+   $(':focus').parent().next().children('a.dirThumb,a#navigateUp').focus();
+});
+
+$(document).bind('keydown', 'left', function(){
+   $(':focus').parent().prev().children('a.dirThumb,a#navigateUp').focus();
    /*
    for (y=1; y<10; y++) {
+
    	   console.log(x);
+
    	   x = x.next();
+
    }*/
 });
+
+$(document).bind('keydown', 'down', function(){
+   columns = colCount();
+   element = $(':focus')
+   for (n=0; n<columns; n++) {
+      element = element.parent().next().children('a.dirThumb,a#navigateUp');
+   }
+   element.focus();
+});
+
+$(document).bind('keydown', 'up', function(){
+   columns = colCount();
+   element = $(':focus')
+   for (n=0; n<columns; n++) {
+      element = element.parent().prev().children('a.dirThumb,a#navigateUp');
+   }
+   element.focus();
+});
+
+function colCount() {
+   size = Foundation.MediaQuery.current;
+   columns = 6
+   if (size == 'medium') {
+      columns = 3
+   } else if (size == 'small') {
+      columns = 2
+   }
+   return columns;
+}
