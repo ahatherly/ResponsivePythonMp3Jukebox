@@ -23,19 +23,19 @@ $(document).bind('keydown', 'esc', function(){
    }
 });
 
-$(document).bind('keydown', 'p', function(){
+$(document).bind('keydown', 'Shift+p', function(){
    if ($('#playButton').length) {
    	   $('#playButton')[0].click();
    }
 });
 
-$(document).bind('keydown', '.', function(){
+$(document).bind('keydown', 'Shift+f', function(){
    if ($('#nextButton').length) {
        $('#nextButton')[0].click();
    }
 });
 
-$(document).bind('keydown', ',', function(){
+$(document).bind('keydown', 'Shift+b', function(){
    if ($('#previousButton').length) {
        $('#previousButton')[0].click();
    }
@@ -47,14 +47,6 @@ $(document).bind('keydown', 'right', function(){
 
 $(document).bind('keydown', 'left', function(){
    $(':focus').parent().prev().children('a.dirThumb,a#navigateUp').focus();
-   /*
-   for (y=1; y<10; y++) {
-
-   	   console.log(x);
-
-   	   x = x.next();
-
-   }*/
 });
 
 $(document).bind('keydown', 'down', function(){
