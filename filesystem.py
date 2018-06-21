@@ -1,5 +1,6 @@
 from os import listdir
 from os.path import isfile, isdir, join
+from shutil import copyfile
 
 class FSBrowser:
 
@@ -93,3 +94,8 @@ class FSBrowser:
                 files.append(dirEntry)
 
         return sorted(files, key=lambda k: k['name'])
+
+    def copyCover(self):
+        fullPath = self.homePath+"/"+self.path
+        print(fullPath+"/cover.jpg")
+        copyfile("/tmp/cover.jpg", fullPath+"/cover.jpg")

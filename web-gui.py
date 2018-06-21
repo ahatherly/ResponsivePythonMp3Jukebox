@@ -1,12 +1,13 @@
-from flask import Flask, render_template, url_for, send_from_directory, request
+from flask import Flask, render_template, url_for, send_from_directory, request, redirect
 import subprocess, time
 from filesystem import FSBrowser
 from coverart import CoverArt
+import urllib.parse
 
 application = Flask(__name__)
 home_directory = "/media/FreeAgent_Drive/mp3s"
 fileBrowser = FSBrowser(home_directory)
-coverart = CoverArt()
+coverartdownloader = CoverArt()
 
 @application.route("/")
 def index():
@@ -16,7 +17,8 @@ def index():
 @application.route("/browse")
 def browse():
     new_path = request.args.get('dir', '')
-    fileBrowser.setPath(new_path)
+    if new_path != None:
+        fileBrowser.setPath(new_path)
     return showContents()
 
 @application.route("/play")
@@ -34,17 +36,36 @@ def thumb():
     return send_from_directory(fileBrowser.getFullPath(), filename)
 
 @application.route("/coverart")
-def test():
+def coverart():
     path = request.args.get('dir', '')
     fileBrowser.setPath(path)
     result=fileBrowser.getArtistAlbum()
-    coverart.getCoverArt(result['artist'], result['album'])
-    return "Artist: "+result['artist']+"<br/>Album: "+result['album']
+    #coverart.getCoverArt(result['artist'], result['album'])
+    return render_template('cover-art.html', path=fileBrowser.getPath(), parent=fileBrowser.getParent(), artist=result['artist'], album=result['album'])
+
+@application.route("/getcover")
+def getcover():
+    artist = request.args.get('artist', '')
+    album = request.args.get('album', '')
+    coverartdownloader.getCoverArt(artist, album)
+    return render_template('cover-art.html', path=fileBrowser.getPath(), parent=fileBrowser.getParent(), artist=artist, album=album, cover=True)
+
+@application.route("/confirmcover")
+def confirmcover():
+    path=fileBrowser.getPath()
+    fileBrowser.copyCover()
+    return redirect("/browse?dir="+urllib.parse.quote_plus(fileBrowser.getPath()), code=302)
+
+@application.route("/tempcover")
+def tempcover():
+    return send_from_directory("/tmp", "cover.jpg")
 
 def showContents():
     directories = fileBrowser.getDirectories()
     files = fileBrowser.getFiles()
     return render_template('index.html', directories=directories, files=files, path=fileBrowser.getPath(), parent=fileBrowser.getParent())
+
+
 
 """
 @application.route('/favicon.ico')

@@ -1,0 +1,63 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script type="text/javascript" src="/static/js/soundmanager2.js"></script>
+	<script src="/static/js/bar-ui.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	<link rel="stylesheet" href="/static/css/bar-ui.css" />
+	<link rel="stylesheet" href="/static/css/foundation/foundation.css">
+	<link rel="stylesheet" href="/static/css/foundation/app.css">
+	<link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+
+			<div class="large-12 cell">
+				{% if path != "/" and parent %}
+				  <p><a id="navigateUp" href="browse?dir={{path|urlencode}}"><i class="fas fa-angle-double-left fa-3x"></i></a></p>
+				{% else %}
+				  <p></p>
+				{% endif %}
+			</div> <!-- End Cell -->
+        
+			<div class="large-12 cell">
+				<form action="getcover">
+					<label>Artist
+					  <input type="text" name="artist" value="{{artist}}"/>
+					</label>
+					<label>Album
+					  <input type="text" name="album" value="{{album}}"/>
+					</label>
+					<button type="submit" class="button">Search</button>
+				</form>
+			</div> <!-- End Cell -->
+			
+			{% if cover %}
+			<div class="large-12 cell">
+				<img class="tempcover" src="tempcover?dummy={{range(1, 99999) | random}}"/>
+				<form action="confirmcover">
+					<button type="submit" class="button">Apply Image</button>
+				</form>
+			</div> <!-- End Cell -->
+			{% endif %}
+			
+      </div> <!-- End Grid-X -->
+    </div> <!-- End Grid Container -->
+	
+
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/jquery.hotkeys.js"></script>
+    <script src="/static/js/keybindings.js"></script>
+    <script src="/static/js/vendor/foundation.js"></script>
+    <script src="/static/js/app.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+
+</body>
+</html>

@@ -20,7 +20,7 @@
 			<div class="large-12 cell">
 	
 				{% if path != "/" and parent %}
-				  <p><a id="navigateUp" href="browse?dir={{parent}}"><i class="fas fa-angle-double-left fa-3x"></i></a></p>
+				  <p><a id="navigateUp" href="browse?dir={{parent|urlencode}}"><i class="fas fa-angle-double-left fa-3x"></i></a></p>
 				{% else %}
 				  <p></p>
 				{% endif %}
@@ -131,6 +131,10 @@
 			</div> <!-- End Cell -->
 			{% endfor %}
 			
+			<!-- Cover art link -->
+			<div class="cell large-12">
+				<a href="coverart?dir={{path|urlencode}}">Download cover art</a>
+			</div> <!-- End Cell -->
         
       </div> <!-- End Grid-X -->
     </div> <!-- End Grid Container -->
