@@ -29,3 +29,16 @@ img.tempcover {
 	max-width: 300px;
 	padding-bottom: 10px;
 }
+.thumbCell {
+	text-align: center;
+	margin: 1em 0;
+}
+.helper {
+    display: inline-block;
+    height: 15%;
+    vertical-align: middle;
+}
+.playerThumb {
+	width: 100%;
+	vertical-align: middle;
+}

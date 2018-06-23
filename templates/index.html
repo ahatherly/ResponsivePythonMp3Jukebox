@@ -16,8 +16,11 @@
 
 	<div class="grid-container">
       <div class="grid-x grid-padding-x">
-
+			{% if thumb and files %}
+			<div class="large-8 medium-8 small-12 cell">
+			{% else %}
 			<div class="large-12 cell">
+			{% endif %}
 	
 				{% if path != "/" and parent %}
 				  <p><a id="navigateUp" href="browse?dir={{parent|urlencode}}"><i class="fas fa-angle-double-left fa-3x"></i></a></p>
@@ -113,19 +116,26 @@
 				<p></p>
 				{% endif %}
 			</div> <!-- End Cell -->
+
+			{% if thumb and files %}
+			<div class="large-4 medium-4 hide-for-small-only thumbCell cell">
+				<span class="helper"></span>
+				<img class="playerThumb" border="0" src="thumb?dir={{path|urlencode}}&file={{thumb|urlencode}}"/>
+			</div> <!-- End Cell -->
+			{% endif %}
 				
 			<!-- Directories -->
 			{% for dir in directories %}
 			<div class="cell large-2 medium-4 small-6">
 				<a class="dirThumb" href="browse?dir={{path|urlencode}}/{{dir.name|urlencode}}">
-						{% if dir.thumb %}
-						<img border="0" src="thumb?dir={{path|urlencode}}/{{dir.name|urlencode}}&file={{dir.thumb|urlencode}}"/>
-						{% else %}
-						<img border="0" src="/static/cd.png"/>
-						{% endif %}
+					{% if dir.thumb %}
+					<img border="0" src="thumb?dir={{path|urlencode}}/{{dir.name|urlencode}}&file={{dir.thumb|urlencode}}"/>
+					{% else %}
+					<img border="0" src="/static/cd.png"/>
+					{% endif %}
 				</a>
 				<a class="dirEntry" tabindex="-1" href="browse?dir={{path|urlencode}}/{{dir.name|urlencode}}">
-						<p>{{ dir.name }}</p>
+					<p>{{ dir.name }}</p>
 				</a>
 				
 			</div> <!-- End Cell -->

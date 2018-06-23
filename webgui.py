@@ -62,8 +62,9 @@ def tempcover():
 
 def showContents():
     directories = fileBrowser.getDirectories()
+    thumb = fileBrowser.getCurrentDirThumb()
     files = fileBrowser.getFiles()
-    return render_template('index.html', directories=directories, files=files, path=fileBrowser.getPath(), parent=fileBrowser.getParent())
+    return render_template('index.html', directories=directories, files=files, thumb=thumb, path=fileBrowser.getPath(), parent=fileBrowser.getParent())
 
 
 

@@ -43,6 +43,8 @@ $(document).bind('keydown', 'Shift+b', function(){
 
 $(document).bind('keydown', 'right', function(){
    $(':focus').parent().next().children('a.dirThumb,a#navigateUp').focus();
+   // Make sure the whole thumb is visible
+   scrollThumbIntoView(element.parent());
 });
 
 $(document).bind('keydown', 'left', function(){
@@ -56,6 +58,8 @@ $(document).bind('keydown', 'down', function(){
       element = element.parent().next().children('a.dirThumb,a#navigateUp');
    }
    element.focus();
+   // Make sure the whole thumb is visible
+   scrollThumbIntoView(element.parent());
 });
 
 $(document).bind('keydown', 'up', function(){
@@ -67,6 +71,19 @@ $(document).bind('keydown', 'up', function(){
    element.focus();
 });
 
+function scrollThumbIntoView(element) {
+   var elementBottom = element.position().top + element.outerHeight(true);
+   var viewportBottom = window.scrollY + window.innerHeight;
+
+   console.log("Element bottom: " + elementBottom + " , Viewport bottom: " + viewportBottom);
+
+   if (elementBottom > viewportBottom) {
+     var amountToScroll = elementBottom - viewportBottom;
+     var y = $(window).scrollTop();  // current y position on the page
+     $(window).scrollTop(y+amountToScroll);
+   }
+}
+
 function colCount() {
    size = Foundation.MediaQuery.current;
    columns = 6
@@ -76,4 +93,26 @@ function colCount() {
       columns = 2
    }
    return columns;
+}
+
+function rowCount() {
+   thumbs = $('a.dirThumb').length;
+   cols = colCount();
+   rows = Math.ceil(thumbs / cols);
+   return rows;
+}
+
+function getRow() {
+   // First find the index of the thumb we're on
+   thumbs = $('a.dirThumb');
+   idx = -1;
+   $.each( thumbs, function( index, value ) {
+      if ($(value).is(":focus")) {
+         idx = index;
+      }
+   });
+   // Now, see what row we're on
+   cols = colCount();
+   row = Math.floor(idx / cols) + 1;
+   return row;
 }

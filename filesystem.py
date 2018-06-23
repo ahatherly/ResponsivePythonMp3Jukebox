@@ -80,6 +80,9 @@ class FSBrowser:
                 if f.endswith(".jpg") or f.endswith(".JPG"):
                     return f
         return ""
+
+    def getCurrentDirThumb(self):
+        return self.findThumbnail("")
     
     def getDirectories(self):
         fullPath = self.homePath+"/"+self.path
